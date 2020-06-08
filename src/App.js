@@ -31,21 +31,26 @@ const App = () => {
     setSearchQuery("")
   }
 
+  const showLoading = () => {
+    return (
+      loading ? <div className="spinner-border m-2" role="status">
+        <span className="sr-only">Loading...</span>
+      </div> : ""
+    )
+  }
+
   const showNavbar = () => {
     return (
       <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <i className="fas fa-newspaper mr-2" /><span className="navbar-brand">Hacker News API</span>
-      <form className="form-inline" onSubmit={handleSubmit}>
-        <input type="text" className="form-control mr-2" value={searchQuery} onChange={handleChange} placeholder="Enter a keyword" />
-        <button className="btn btn-primary ">Search</button>
-        {loading ? <div className="spinner-border m-2" role="status">
-          <span className="sr-only">Loading...</span>
-        </div> : ""
-        }
-      </form>
-      </nav>
-      
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <i className="fas fa-newspaper mr-2" /><span className="navbar-brand">Hacker News API</span>
+          <form className="form-inline" onSubmit={handleSubmit}>
+            <input type="text" className="form-control mr-2" value={searchQuery} onChange={handleChange} placeholder="Enter a keyword" />
+            <button className="btn btn-primary ">Search</button>
+            {showLoading()}
+          </form>
+        </nav>
+
       </div>
     );
   }
