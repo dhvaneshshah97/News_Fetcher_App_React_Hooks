@@ -3,8 +3,8 @@ import React, { Component, useState, useEffect } from 'react';
 const App = () => {
   // state
   const [news, setNews] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('react');
-  const [url, setUrl] = useState(`http://hn.algolia.com/api/v1/search?query=react`)
+  const [searchQuery, setSearchQuery] = useState('');
+  const [url, setUrl] = useState(`http://hn.algolia.com/api/v1/search`)
   const [loading, setLoading] = useState(false)
 
   // fetch news
@@ -18,7 +18,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    setTimeout(fetchNews(), 2000)
+    setTimeout(fetchNews(), 1000)
   }, [url]);
 
   const handleChange = (e) => {
@@ -28,21 +28,25 @@ const App = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setUrl(`http://hn.algolia.com/api/v1/search?query=${searchQuery}`)
+    setSearchQuery("")
   }
 
-  const showForm = () => {
+  const showNavbar = () => {
     return (
+      <div>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <i className="fas fa-newspaper mr-2" /><span className="navbar-brand">Hacker News API</span>
       <form className="form-inline" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label for="keyword" className="mr-2 mb-2">Enter a keyword</label>
-          <input type="text" className="form-control mr-2 mb-2" value={searchQuery} onChange={handleChange} />
-        </div>
-        <button className="btn btn-primary btn-sm mb-2">Search</button>
-        {loading ? <div class="spinner-border m-2" role="status">
-          <span class="sr-only">Loading...</span>
+        <input type="text" className="form-control mr-2" value={searchQuery} onChange={handleChange} placeholder="Enter a keyword" />
+        <button className="btn btn-primary ">Search</button>
+        {loading ? <div className="spinner-border m-2" role="status">
+          <span className="sr-only">Loading...</span>
         </div> : ""
         }
       </form>
+      </nav>
+      
+      </div>
     );
   }
 
@@ -51,7 +55,7 @@ const App = () => {
       <div>
         {
           news.map((n, i) =>
-            (<p key={i}><i className="fas fa-caret-right" />{" "}{n.title}{" | "}<a href={n.url}>Post</a></p>))
+            (<p key={i}><i className="fas fa-caret-right lg" />{" "}{n.title}{" | "}<a href={n.url} rel="noopener noreferrer" target="_blank">Post</a></p>))
         }
       </div>
     );
@@ -59,8 +63,8 @@ const App = () => {
 
   return (
     <div className="container">
-      <h2><i className="fas fa-newspaper" />{" "}Hacker News API</h2>
-      {showForm()}
+      <h2>{" "}</h2>
+      {showNavbar()}
       {showNews()}
     </div>
   );
