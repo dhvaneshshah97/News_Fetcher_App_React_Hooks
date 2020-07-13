@@ -4,7 +4,7 @@ const App = () => {
   // state
   const [news, setNews] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [url, setUrl] = useState(`http://hn.algolia.com/api/v1/search`)
+  const [url, setUrl] = useState(`https://hn.algolia.com/api/v1/search`)
   const [loading, setLoading] = useState(false)
 
   // fetch news
