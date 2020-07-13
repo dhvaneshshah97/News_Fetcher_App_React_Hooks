@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, {  useState, useEffect } from 'react';
 
 const App = () => {
   // state
@@ -8,17 +8,22 @@ const App = () => {
   const [loading, setLoading] = useState(false)
 
   // fetch news
-  const fetchNews = () => {
+  const fetchNews = async() => {
     setLoading(true)
-    fetch(url)
-      .then(result => result.json())
-      .then(data => (setNews(data.hits), setLoading(false)))
-      .catch(error => console.log(error))
+    const rawResponse = await fetch(url);
+    const response = await rawResponse.json();
+    if (response.error){
+      console.log(response.error)
+    } else {
+      setNews(response.hits);
+      setLoading(false);
+    }
 
   };
 
   useEffect(() => {
     setTimeout(fetchNews(), 1000)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url]);
 
   const handleChange = (e) => {
