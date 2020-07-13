@@ -42,8 +42,9 @@ const App = () => {
   const showNavbar = () => {
     return (
       <div>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light row">
           <i className="fas fa-newspaper mr-2" /><span className="navbar-brand">Hacker News API</span>
+          <div className="col-6"></div>
           <form className="form-inline" onSubmit={handleSubmit}>
             <input type="text" className="form-control mr-2" value={searchQuery} onChange={handleChange} placeholder="Enter a keyword" />
             <button className="btn btn-primary ">Search</button>
